@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>Log in</h1>
+		<form id="form">
+			<input id="name" type="text" />
+			<input id="password" type="password" />
+			<button type="submit">Submit</button>
+		</form>
+		<a href="/signup">Sign up</a>
+	</body>
+	<script>
+		document.querySelector("#form").addEventListener("submit", async e => {
+			e.preventDefault();
+
+			const body = JSON.stringify({
+				name: document.querySelector("#name").value,
+				password: document.querySelector("#password").value,
+			});
+
+			const response = await fetch("/login", {
+				method: "POST",
+				body,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (response.ok) {
+				window.location = "/";
+			}
+		});
+	</script>
+</html>
